@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Sunrise Power</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+    <header>
+<nav class="navbar">
+    <a href="index.html" class="logo"><img src="Assets/sunrise power logo.png" alt="Sunrise Power Logo"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="projects.html">Projects</a></li>
+    </ul>
+    <div class="nav-right">
+    <a href="https://www.solarpower.org/" class="fas fa-globe"></a>
+     <a href="#contact" class="contact-btn">Contact Us</a>
+    </div>
+  </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>With Sunrise Power, your home leads the change.</h1>
+        <p>
+          To make power smarter, greener, more affordable, more convenient, and
+          more friendly.
+        </p>
+        <a href="services.html" class="btn-learn-more">
+          <span>Learn More</span>
+          <div class="arrow-wrapper">
+             <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <div style="height: 1000px;"></div>
+
+    <button class="chatbot-toggler" id="openModal">
+  <i class="fa-solid fa-comments"></i>
+</button>
+
+<!-- Chat/Comment Modal -->
+<div id="chatModal" class="chat-modal">
+  <div class="chat-header">
+    <span>Comment Box</span>
+    <span class="close">&times;</span>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <!-- Comments will appear here -->
+  </div>
+  <div class="chat-footer">
+    <input type="text" id="chatInput" placeholder="Type a comment..." />
+    <button id="sendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+
+
+<script>
+  const chatModal = document.getElementById("chatModal");
+  const openBtn = document.getElementById("openModal");
+  const closeBtn = document.querySelector(".chat-header .close");
+  const chatBody = document.getElementById("chatBody");
+  const chatInput = document.getElementById("chatInput");
+  const sendBtn = document.getElementById("sendBtn");
+
+  openBtn.onclick = () => { chatModal.style.display = "flex"; }
+  closeBtn.onclick = () => { chatModal.style.display = "none"; }
+  window.onclick = (e) => { if (e.target == chatModal) chatModal.style.display = "none"; }
+
+  sendBtn.onclick = () => {
+    let msg = chatInput.value.trim();
+    if(msg){
+      let newMsg = document.createElement("div");
+      newMsg.textContent = msg;
+      newMsg.style.margin = "10px 0";
+      newMsg.style.padding = "8px 12px";
+      newMsg.style.background = "#eee";
+      newMsg.style.borderRadius = "10px";
+      chatBody.appendChild(newMsg);
+      chatInput.value = "";
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  };
+</script>
+
+
+
+
+</body>
+<footer class="footer" id="contact">
+  <div class="footer-container">
+    
+    <div class="footer-col">
+      <img src="Assets/sunrise power logo.png" height="50" alt="Sunrise Power Logo" style="margin-bottom: 10px;">
+      <h3> SUNRISE POWER</h3>
+      <p>Empowering Maharashtra with reliable and sustainable solar energy solutions. Specializing in residential, commercial, and industrial solar installations since 2012.</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/profile.php?id=100090373153574" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/sunrise_power_official" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/+919923138363" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.youtube.com/@Sunrisepower2all" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+
+   
+    <div class="footer-col">
+      <h4>Our Services</h4>
+      <ul>
+        <li> Solar Installations</li>
+        <li>Annual Maintenance Contracts</li>
+        <li>Consultation Services</li>
+        <li>Custom Solar Solutions</li>
+        
+      </ul>
+    </div>
+
+    
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="Index.html">Home</a></li>
+        <li><a href="About.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+      </ul>
+    </div>
+
+    
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <p><i class="fas fa-map-marker-alt"></i> 53B, Canal Bypass Road, Nomaniya Nagar, Taroda BK, Nanded-431605</p><br>
+            <p><i class="fas fa-phone"></i> ‪+91-9923138363‬ / 8329205927</p> <br>
+      <p><i class="fas fa-envelope"></i> sunrisepower2all@gmail.com</p>
+    </div>
+  </div>
+
+  
+  <div class="footer-bottom">
+    © 2025 SUNRISE POWER. All rights reserved.
+  </div>
+</footer>
+
+</html>

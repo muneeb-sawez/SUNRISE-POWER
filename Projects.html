@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Projects - Sunrise Power</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" />
+
+<style>
+/* Reset & base styles */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Poppins",sans-serif;color:#3D2B1F;background-color:#fcf8f0;}
+a{text-decoration:none;color:inherit;}
+
+/* Navbar */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 5%;background:#3D2B1F;color:#fff;}
+.navbar .nav-links a,.navbar .nav-right i{color:#fff;}
+.navbar .contact-btn{color:#fff;border:1px solid #fff; padding: 8px 16px; border-radius: 5px; transition: background 0.3s, color 0.3s;}
+.navbar .contact-btn:hover{background:#fff;color:#000;}
+.logo img{height:60px; vertical-align: middle;}
+.nav-links{display:flex;list-style:none;gap:35px;font-size:1rem;}
+.nav-links a:hover{color:#ddd;}
+.nav-right{display:flex;align-items:center;gap:25px;}
+.nav-right i{font-size:1.2rem;cursor:pointer;}
+
+/* Chatbot button */
+.chatbot-toggler{position:fixed;bottom:30px;right:30px;width:60px;height:60px;background:#fdd835;
+    color:#000;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:2rem;cursor:pointer;box-shadow:0 4px 8px rgba(0,0,0,0.2);z-index:1000;
+    transition:transform 0.3s,box-shadow 0.3s;}
+.chatbot-toggler:hover{transform:scale(1.1);box-shadow:0 6px 12px rgba(0,0,0,0.3);}
+
+/* Section headings */
+.page-section{padding:80px 5%;text-align:center;}
+.page-section h2{font-size:2.5rem;margin-bottom:50px;color:#3D2B1F;}
+
+/* --- 2x2 Project Categories Grid --- */
+.projects-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    grid-template-rows:repeat(2,auto);
+    gap:30px;
+    max-width:1000px;
+    margin:0 auto;
+}
+@media(max-width:700px){
+    .projects-grid{grid-template-columns:1fr;}
+}
+
+/* Category Cards */
+.project-category-card{
+    background:#fff;border-radius:10px;overflow:hidden;text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+    transition:transform 0.3s,box-shadow 0.3s;
+    position:relative;color:#fff;cursor:pointer;
+}
+.project-category-card:hover{transform:translateY(-10px);box-shadow:0 8px 25px rgba(0,0,0,0.12);}
+.project-category-card img{width:100%;height:350px;object-fit:cover;transition:transform 0.3s;}
+.project-category-card:hover img{transform:scale(1.05);}
+.project-category-card h3{
+    position:absolute;bottom:0;left:0;width:100%;padding:20px;
+    font-size:1.8rem;
+    background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);
+    text-shadow:1px 1px 3px rgba(0,0,0,0.7);
+}
+
+/* Gallery pages */
+.gallery-section p{font-size:1.1rem;max-width:800px;margin:-30px auto 50px;color:#5a4435;}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:1400px;margin:0 auto;}
+.photo-grid a img{width:100%;height:250px;object-fit:cover;border-radius:10px;transition:transform 0.3s,box-shadow 0.3s;}
+.photo-grid a:hover img{transform:scale(1.05);box-shadow:0 8px 25px rgba(0,0,0,0.15);}
+.back-button{background:#3D2B1F;color:#fff;border:none;padding:12px 25px;border-radius:5px;font-size:1rem;
+    cursor:pointer;margin-bottom:50px;transition:background 0.3s;}
+.back-button:hover{background:#5a4435;}
+.hidden{display:none;}
+
+/* Chat Modal Styles */
+.chat-modal{display:none;position:fixed;bottom:100px;right:30px;width:350px;height:450px;background:#fff;
+    border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.3);overflow:hidden;flex-direction:column;z-index:2000;}
+.chat-header{background:#fdd835;padding:15px;font-weight:600;color:#3D2B1F;display:flex;justify-content:space-between;align-items:center;}
+.chat-header .close{cursor:pointer;font-size:22px;}
+.chat-body{flex:1;padding:15px;overflow-y:auto;background:#fafafa;font-size:0.9rem;color:#444;}
+.chat-footer{display:flex;border-top:1px solid #ddd;}
+.chat-footer input{flex:1;padding:12px;border:none;outline:none;}
+.chat-footer button{background:#3D2B1F;border:none;color:white;padding:0 18px;cursor:pointer;transition:background 0.3s;}
+.chat-footer button:hover{background:#5a4435;}
+
+footer a {
+  margin: 0 12px;              /* spacing between icons */
+  color: white;                /* default color */
+  font-size: 28px;             /* bigger icons */
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+footer a:hover {
+  color: #f1c40f;              /* gold highlight on hover */
+  transform: scale(1.2);       /* slight zoom on hover */
+}
+</style>
+</head>
+
+<body>
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="logo"><img src="Assets/sunrise power logo.png" alt="Sunrise Power Logo"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+      <li><a href="projects.html">Projects</a></li>
+    </ul>
+    <div class="nav-right">
+ <a href="https://www.solarpower.org/" class="fas fa-globe"></a>
+      <a href="#contact" class="contact-btn">Contact Us</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section id="categories-section" class="page-section">
+    <h2>Our Project Catalogue</h2>
+    <div class="projects-grid">
+      <div onclick="showGallery('residential-gallery')" class="project-category-card">
+        <img src="Assets/Resedential P.png" alt="Residential Solar Setup">
+        <h3>Residential</h3>
+      </div>
+      <div onclick="showGallery('commercial-gallery')" class="project-category-card">
+        <img src="Assets/Commercial P.png" alt="Commercial Solar Setup">
+        <h3>Commercial</h3>
+      </div>
+      <div onclick="showGallery('industrial-gallery')" class="project-category-card">
+        <img src="Assets/Industrial P.png" alt="Industrial Solar Setup">
+        <h3>Industrial</h3>
+      </div>
+      <div onclick="showGallery('inverters-gallery')" class="project-category-card">
+        <img src="Assets/Inverter P.png" alt="Solar Inverters">
+        <h3>Inverters</h3>
+      </div>
+    </div>
+  </section>
+
+  <section id="residential-gallery" class="page-section hidden gallery-section">
+    <button onclick="showCategories()" class="back-button">&larr; Back to Project Categories</button>
+    <h2>Residential Projects Gallery</h2>
+    <p>Browse through our collection of residential solar installations.</p>
+    <div class="photo-grid">
+      <a href="Assets/R1.jpg" data-lightbox="residential"><img src="Assets/R1.jpg"></a>
+      <a href="Assets/R2.jpg" data-lightbox="residential"><img src="Assets/R2.jpg"></a>
+      <a href="Assets/R3.jpg" data-lightbox="residential"><img src="Assets/R3.jpg"></a>
+      <a href="Assets/R4.jpg" data-lightbox="residential"><img src="Assets/R4.jpg"></a>
+      <a href="Assets/R5.jpg" data-lightbox="residential"><img src="Assets/R5.jpg"></a>
+      <a href="Assets/R6.jpg" data-lightbox="residential"><img src="Assets/R6.jpg"></a>
+      <a href="Assets/R7.jpg" data-lightbox="residential"><img src="Assets/R7.jpg"></a>
+      <a href="Assets/R8.jpg" data-lightbox="residential"><img src="Assets/R8.jpg"></a>
+      <a href="Assets/R9.jpg" data-lightbox="residential"><img src="Assets/R9.jpg"></a>
+      <a href="Assets/R10.jpg" data-lightbox="residential"><img src="Assets/R10.jpg"></a>
+      <a href="Assets/R11.webp" data-lightbox="residential"><img src="Assets/R11.webp"></a>
+      <a href="Assets/R12.jpg" data-lightbox="residential"><img src="Assets/R12.jpg"></a>
+      <a href="Assets/R13.jpg" data-lightbox="residential"><img src="Assets/R13.jpg"></a>
+      <a href="Assets/R14.jpg" data-lightbox="residential"><img src="Assets/R14.jpg"></a>
+      <a href="Assets/R15.jpg" data-lightbox="residential"><img src="Assets/R15.jpg"></a>
+      <a href="Assets/R16.webp" data-lightbox="residential"><img src="Assets/R16.webp"></a>
+    </div>
+  </section>
+
+  <section id="commercial-gallery" class="page-section hidden gallery-section">
+    <button onclick="showCategories()" class="back-button">&larr; Back to Project Categories</button>
+    <h2>Commercial Projects Gallery</h2>
+    <p>Explore our solar solutions for businesses, schools, colleges and hospitals.</p>
+    <div class="photo-grid">
+        <a href="Assets/Site6.jpg" data-lightbox="commercial"><img src="Assets/Site6.jpg"></a>
+        <a href="Assets/Site2.jpg" data-lightbox="commercial"><img src="Assets/Site2.jpg"></a>
+        <a href="Assets/Site3.jpg" data-lightbox="commercial"><img src="Assets/Site3.jpg"></a>
+        <a href="Assets/Site4.jpg" data-lightbox="commercial"><img src="Assets/Site4.jpg"></a>
+        <a href="Assets/Site5.jpg" data-lightbox="commercial"><img src="Assets/Site5.jpg"></a>
+        <a href="Assets/Site6.jpg" data-lightbox="commercial"><img src="Assets/Site6.jpg"></a>
+        <a href="Assets/Site7.jpg" data-lightbox="commercial"><img src="Assets/Site7.jpg"></a>
+        <a href="Assets/Site8.jpg" data-lightbox="commercial"><img src="Assets/Site8.jpg"></a>
+        <a href="Assets/Site9.jpg" data-lightbox="commercial"><img src="Assets/Site9.jpg"></a>
+        <a href="Assets/Site10.jpg" data-lightbox="commercial"><img src="Assets/Site10.jpg"></a>
+        <a href="Assets/Site11.jpg" data-lightbox="commercial"><img src="Assets/Site11.jpg"></a>
+        <a href="Assets/Site12.jpg" data-lightbox="commercial"><img src="Assets/Site12.jpg"></a>
+        <a href="Assets/Site13.jpg" data-lightbox="commercial"><img src="Assets/Site13.jpg"></a>
+        <a href="Assets/Site14.jpg" data-lightbox="commercial"><img src="Assets/Site14.jpg"></a>
+        <a href="Assets/Site15.jpg" data-lightbox="commercial"><img src="Assets/Site15.jpg"></a>
+        <a href="Assets/COM16.jpg" data-lightbox="commercial"><img src="Assets/COM16.jpg"></a>
+    </div>
+  </section>
+
+  <section id="industrial-gallery" class="page-section hidden gallery-section">
+    <button onclick="showCategories()" class="back-button">&larr; Back to Project Categories</button>
+    <h2>Industrial Projects Gallery</h2>
+    <p>See our high-capacity installations for factories and industrial plants.</p>
+    <div class="photo-grid">
+        <a href="Assets/F1.jpg" data-lightbox="industrial"><img src="Assets/F1.jpg"></a>
+        <a href="Assets/F2.webp" data-lightbox="industrial"><img src="Assets/F2.webp"></a>
+        <a href="Assets/F3.jpg" data-lightbox="industrial"><img src="Assets/F3.jpg"></a>
+        <a href="Assets/F4.jpg" data-lightbox="industrial"><img src="Assets/F4.jpg"></a>
+        <a href="Assets/F5.jpg" data-lightbox="industrial"><img src="Assets/F5.jpg"></a>
+        <a href="Assets/F6.jpg" data-lightbox="industrial"><img src="Assets/F6.jpg"></a>
+        <a href="Assets/F7.jpg" data-lightbox="industrial"><img src="Assets/F7.jpg"></a>
+        <a href="Assets/F8.jpg" data-lightbox="industrial"><img src="Assets/F8.jpg"></a>
+        <a href="Assets/F9.jpg" data-lightbox="industrial"><img src="Assets/F9.jpg"></a>
+        <a href="Assets/F10.jpg" data-lightbox="industrial"><img src="Assets/F10.jpg"></a>
+        <a href="Assets/F11.jpg" data-lightbox="industrial"><img src="Assets/F11.jpg"></a>
+        <a href="Assets/F12.webp" data-lightbox="industrial"><img src="Assets/F12.webp"></a>
+        <a href="Assets/F13.webp" data-lightbox="industrial"><img src="Assets/F13.webp"></a>
+        <a href="Assets/F15.webp" data-lightbox="industrial"><img src="Assets/F15.webp"></a>
+        <a href="Assets/F14.webp" data-lightbox="industrial"><img src="Assets/F14.webp"></a>
+        <a href="Assets/F16.jpg" data-lightbox="industrial"><img src="Assets/F16.jpg"></a>
+    </div>
+  </section>
+  
+  <section id="inverters-gallery" class="page-section hidden gallery-section">
+    <button onclick="showCategories()" class="back-button">&larr; Back to Project Categories</button>
+    <h2>Inverters Gallery</h2>
+    <p>Discover the high-efficiency inverters we use in our projects.</p>
+    <div class="photo-grid">
+        <a href="Assets/H1.jpg" data-lightbox="inverters"><img src="Assets/H1.jpg"></a>
+        <a href="Assets/H2.jpg" data-lightbox="inverters"><img src="Assets/H2.jpg"></a>
+        <a href="Assets/H3.jpg" data-lightbox="inverters"><img src="Assets/H3.jpg"></a>
+        <a href="Assets/H4.jpg" data-lightbox="inverters"><img src="Assets/H4.jpg"></a>
+        <a href="Assets/H5.jpg" data-lightbox="inverters"><img src="Assets/H5.jpg"></a>
+        <a href="Assets/H6.jpg" data-lightbox="inverters"><img src="Assets/H6.jpg"></a>
+        <a href="Assets/H7.jpg" data-lightbox="inverters"><img src="Assets/H7.jpg"></a>
+        <a href="Assets/H8.webp" data-lightbox="inverters"><img src="Assets/H8.webp"></a>
+        <a href="Assets/H9.jpg" data-lightbox="inverters"><img src="Assets/H9.jpg"></a>
+        <a href="Assets/H10.jpg" data-lightbox="inverters"><img src="Assets/H10.jpg"></a>
+        <a href="Assets/H11.jpg" data-lightbox="inverters"><img src="Assets/H11.jpg"></a>
+        <a href="Assets/H12.jpg" data-lightbox="inverters"><img src="Assets/H12.jpg"></a>
+    </div>
+  </section>
+
+</main>
+
+<button class="chatbot-toggler" id="openModal">
+  <i class="fa-solid fa-comments"></i>
+</button>
+
+<div id="chatModal" class="chat-modal">
+  <div class="chat-header">
+    <span>Comment Box</span>
+    <span class="close">&times;</span>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-footer">
+    <input type="text" id="chatInput" placeholder="Type a comment..." />
+    <button id="sendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.min.js"></script>
+
+<script>
+  // --- Gallery Logic ---
+  const categoriesSection = document.getElementById('categories-section');
+  const gallerySections = document.querySelectorAll('.gallery-section');
+
+  function showGallery(galleryId) {
+      categoriesSection.classList.add('hidden');
+      const galleryToShow = document.getElementById(galleryId);
+      if (galleryToShow) {
+          galleryToShow.classList.remove('hidden');
+      }
+  }
+
+  function showCategories() {
+      gallerySections.forEach(section => {
+          section.classList.add('hidden');
+      });
+      categoriesSection.classList.remove('hidden');
+  }
+
+  // --- Chat Modal Logic ---
+  const chatModal = document.getElementById("chatModal");
+  const openBtn = document.getElementById("openModal");
+  const closeBtn = document.querySelector(".chat-header .close");
+  const chatBody = document.getElementById("chatBody");
+  const chatInput = document.getElementById("chatInput");
+  const sendBtn = document.getElementById("sendBtn");
+
+  openBtn.onclick = () => { chatModal.style.display = "flex"; }
+  closeBtn.onclick = () => { chatModal.style.display = "none"; }
+  window.onclick = (e) => { if (e.target == chatModal) chatModal.style.display = "none"; }
+
+  sendBtn.onclick = () => {
+    let msg = chatInput.value.trim();
+    if(msg){
+      let newMsg = document.createElement("div");
+      newMsg.textContent = msg;
+      newMsg.style.margin = "10px 0";
+      newMsg.style.padding = "8px 12px";
+      newMsg.style.background = "#eee";
+      newMsg.style.borderRadius = "10px";
+      chatBody.appendChild(newMsg);
+      chatInput.value = "";
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  };
+</script>
+
+<footer>
+  <p style="text-align: center; padding: 20px; background-color: #3D2B1F; color: white;">
+    <a href="https://www.instagram.com/sunrise_power_official" target="_blank" style="margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/+919923138363" target="_blank" style="margin: 0 10px;"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://www.facebook.com/profile.php?id=100090373153574" target="_blank" style="margin: 0 10px;"><i class="fab fa-facebook"></i></a>
+    <a href="https://www.youtube.com/@Sunrisepower2all" target="_blank" style="margin: 0 10px;"><i class="fab fa-youtube"></i></a>
+    <br><br>
+    © 2024 Sunrise Power. All rights reserved.
+  </p>
+</footer>
+</body>
+</html>
+
