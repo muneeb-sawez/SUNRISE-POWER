@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Products - Sunrise Power</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" />
+
+<style>
+    /* Reset and base styles */
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:"Poppins",sans-serif;
+      color:#3D2B1F;
+      background-color:#fcf8f0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    a{text-decoration:none;color:inherit;}
+
+    /* Main content area to take up available space */
+    main {
+        flex-grow: 1;
+    }
+
+    /* Navbar */
+    .navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 5%;background:#3D2B1F;color:#fff;}
+    .navbar .nav-links a,.navbar .nav-right i{color:#fff;}
+    .navbar .contact-btn{color:#fff;border:1px solid #fff; padding: 8px 16px; border-radius: 5px; transition: background 0.3s, color 0.3s;}
+    .navbar .contact-btn:hover{background:#fff;color:#000;}
+    .logo img{height:60px; vertical-align: middle;}
+    .nav-links{display:flex;list-style:none;gap:35px;font-size:1rem;}
+    .nav-links a:hover{color:#ddd;}
+    .nav-links a.active{border-bottom:2px solid #fdd835;}
+    .nav-right{display:flex;align-items:center;gap:25px;}
+    .nav-right i{font-size:1.2rem;cursor:pointer;}
+
+    /* Section */
+    .page-section{padding:80px 5%;text-align:center;}
+    .page-section h2{font-size:2.5rem;margin-bottom:50px;color:#3D2B1F;}
+
+    /* Category Cards */
+    .products-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:30px;
+      max-width:800px;
+      margin:0 auto;
+    }
+    .product-category-card{
+      background:#fff;border-radius:10px;overflow:hidden;text-align:center;
+      box-shadow:0 4px 15px rgba(0,0,0,0.08);
+      transition:transform 0.3s,box-shadow 0.3s;
+      padding:40px 20px;
+      cursor:pointer;
+    }
+    .product-category-card:hover{transform:translateY(-10px);box-shadow:0 8px 25px rgba(0,0,0,0.12);}
+    .product-category-card i{font-size:80px;color:#3D2B1F;margin-bottom:20px;}
+    .product-category-card h3{font-size:1.5rem;color:#3D2B1F;}
+
+    /* Brand Grid (2x2) */
+    .brand-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:20px;
+      max-width:1100px;
+      margin:30px auto;
+    }
+    .brand-card{
+      background:#fff;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      padding:20px;text-align:left;cursor:pointer;transition:transform 0.3s;
+    }
+    .brand-card:hover{transform:translateY(-6px);}
+    .brand-card h4{color:#3D2B1F;margin-bottom:10px;}
+    .brand-card p{font-size:14px;color:#555;}
+    /* Ensure the brand grid is responsive on smaller screens */
+    @media (max-width: 768px) {
+        .brand-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+
+    /* Catalogue grid */
+    .catalogue-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+      max-width:1200px;
+      margin:30px auto;
+    }
+    .catalogue-card{
+      background:#fff;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      padding:15px;text-align:center;
+    }
+    .catalogue-card img{width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:10px;}
+    .catalogue-card h5{color:#3D2B1F;margin-bottom:5px;}
+    .catalogue-card p{font-size:14px;color:#555;}
+
+    /* Back Button */
+    .back-button{background:#3D2B1F;color:#fff;border:none;padding:12px 25px;border-radius:5px;font-size:1rem;
+    cursor:pointer;margin-bottom:40px;transition:background 0.3s;}
+    .back-button:hover{background:#5a4435;}
+
+    .hidden{display:none;}
+</style>
+</head>
+
+<body>
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="logo"><img src="Assets/sunrise power logo.png" alt="Sunrise Power Logo"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="products.html" class="active">Products</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="https://www.solarpower.org/" class="fas fa-globe"></a>
+      <a href="#contact" class="contact-btn">Contact Us</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- Step 1: Categories -->
+  <section id="categories-section" class="page-section">
+    <h2>Our Products</h2>
+    <div class="products-grid">
+      <div onclick="showBrands('solar-brands')" class="product-category-card">
+        <i class="fa-solid fa-solar-panel"></i>
+        <h3>Solar Panels</h3>
+      </div>
+      <div onclick="showBrands('inverter-brands')" class="product-category-card">
+        <i class="fa-solid fa-bolt"></i>
+        <h3>Inverters</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 2: Solar Brands -->
+  <section id="solar-brands" class="page-section hidden">
+    <button onclick="showCategories()" class="back-button">&larr; Back to Categories</button>
+    <h2>Solar Panel Brands</h2>
+    <div class="brand-grid">
+      <div onclick="showCatalogue('sunpower-catalogue', 'solar-brands')" class="brand-card">
+        <h4>SunPower (Imported, USA)</h4>
+        <p>American brand, famous for high-efficiency solar panels and long-term warranties.</p>
+      </div>
+      <div onclick="showCatalogue('waaree-catalogue', 'solar-brands')" class="brand-card">
+        <h4>Waaree Energies Ltd (India)</h4>
+        <p>Leading Indian solar manufacturer from Gujarat with large module production capacity.</p>
+      </div>
+      <div onclick="showCatalogue('tata-catalogue', 'solar-brands')" class="brand-card">
+        <h4>Tata Power Solar (India)</h4>
+        <p>Part of Tata Group, known for reliable panels and EPC solutions in India.</p>
+      </div>
+      <div onclick="showCatalogue('vikram-catalogue', 'solar-brands')" class="brand-card">
+        <h4>Vikram Solar (India)</h4>
+        <p>Indian manufacturer exporting modules globally, strong presence in domestic projects.</p>
+      </div>
+      <div onclick="showCatalogue('pahal-catalogue', 'solar-brands')" class="brand-card">
+        <h4>Pahal (India)</h4>
+        <p>Pahal Solar is an Indian company offering affordable and efficient solar modules.</p>
+      </div>
+      <div onclick="showCatalogue('jinko-catalogue', 'solar-brands')" class="brand-card">
+        <h4>Jinko (Imported, China)</h4>
+        <p>One of the world’s largest Chinese solar manufacturers, exporting globally.</p>
+      </div>
+      <div onclick="showCatalogue('emmvee-catalogue', 'solar-brands')" class="brand-card">
+        <h4>Emmvee (India)</h4>
+        <p>Karnataka-based Indian solar module producer with domestic and export presence.</p>
+      </div>
+      <!-- Added a new solar panel brand -->
+      <div onclick="showCatalogue('adani-catalogue', 'solar-brands')" class="brand-card">
+        <h4>Adani Solar (India)</h4>
+        <p>Part of the Adani Group, a major Indian manufacturer of high-quality solar PV modules.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 2: Inverter Brands -->
+  <section id="inverter-brands" class="page-section hidden">
+    <button onclick="showCategories()" class="back-button">&larr; Back to Categories</button>
+    <h2>Inverter Brands</h2>
+    <div class="brand-grid">
+      <div onclick="showCatalogue('cellcronic-catalogue', 'inverter-brands')" class="brand-card">
+        <h4>Cellcronic (India)</h4>
+        <p>Supplier of hybrid inverters, LiFePO₄ battery systems, and integrated solar solutions.</p>
+      </div>
+      <div onclick="showCatalogue('deye-catalogue', 'inverter-brands')" class="brand-card">
+        <h4>Deye (Imported, China)</h4>
+        <p>Chinese inverter brand, well-known for hybrid inverters with advanced cooling.</p>
+      </div>
+      <div onclick="showCatalogue('bettry-catalogue', 'inverter-brands')" class="brand-card">
+        <h4>Bettry (Imported)</h4>
+        <p>Energy storage and inverter products, available in select global markets.</p>
+      </div>
+      <div onclick="showCatalogue('eastman-catalogue', 'inverter-brands')" class="brand-card">
+        <h4>Eastman (Imported)</h4>
+        <p>Brand offering inverters and batteries for residential and commercial energy systems.</p>
+      </div>
+      <div onclick="showCatalogue('lithium-catalogue', 'inverter-brands')" class="brand-card">
+        <h4>Lithium (Imported)</h4>
+        <p>Lithium battery-based inverter systems, commonly used in hybrid energy setups.</p>
+      </div>
+      <div onclick="showCatalogue('solex-catalogue', 'inverter-brands')" class="brand-card">
+        <h4>Solex (India)</h4>
+        <p>Indian solar energy brand offering modules and inverter solutions.</p>
+      </div>
+      <div onclick="showCatalogue('growatt-catalogue', 'inverter-brands')" class="brand-card">
+        <h4>Growatt (Imported, China)</h4>
+        <p>Popular Chinese inverter brand, widely used in residential and commercial markets.</p>
+      </div>
+      <!-- Added a new inverter brand -->
+      <div onclick="showCatalogue('solax-catalogue', 'inverter-brands')" class="brand-card">
+        <h4>Solax Power (Imported)</h4>
+        <p>Global leader in solar inverters, specializing in residential and commercial applications.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 3: Catalogue sections for all brands -->
+  <!-- Solar Panels -->
+  <section id="sunpower-catalogue" class="page-section hidden">
+    <button onclick="showBrands('solar-brands')" class="back-button">&larr; Back to Solar Brands</button>
+    <h2>SunPower - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src= "Assets/PRO1.avif" alt="SunPower Panel 1">
+        <h5>SunPower Equinox 370W</h5>
+        <p>High-efficiency panel with integrated micro-inverter.</p>
+      </div>
+      <div class="catalogue-card">
+        <img src="Assets/PRO2.jpg" alt="SunPower Panel 2">
+        <h5>SunPower Maxeon 425W</h5>
+        <p>Durable and high-performance, designed for longevity.</p>
+      </div>
+      <div class="catalogue-card">
+        <img src="Assets/PRO3.jpg" alt="SunPower Panel 3">
+        <h5>SunPower E-Series 327W</h5>
+        <p>Standard efficiency, great for residential use.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="waaree-catalogue" class="page-section hidden">
+    <button onclick="showBrands('solar-brands')" class="back-button">&larr; Back to Solar Brands</button>
+    <h2>Waaree Energies - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="Assets/WAR1.webp" alt="Waaree Panel 1">
+        <h5>Waaree 330W Mono PERC</h5>
+        <p>High-efficiency modules for commercial and residential use.</p>
+      </div>
+      <div class="catalogue-card">
+        <img src="Assets/WAR2.webp" alt="Waaree Panel 2">
+        <h5>Waaree 440W Bificial</h5>
+        <p>Bificial technology for higher energy generation.</p>
+      </div>
+      <div class="catalogue-card">
+        <img src="Assets/WAR3.webp" alt="Waaree Panel 3">
+        <h5>Waaree 550W Series</h5>
+        <p>High power modules for utility-scale projects.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tata-catalogue" class="page-section hidden">
+    <button onclick="showBrands('solar-brands')" class="back-button">&larr; Back to Solar Brands</button>
+    <h2>Tata Power Solar - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/F2AE72/fff?text=Tata+Panel+1" alt="Tata Panel 1">
+        <h5>Tata Power 325W Polycrystalline</h5>
+        <p>Robust and reliable panels for all weather conditions.</p>
+      </div>
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/F2AE72/fff?text=Tata+Panel+2" alt="Tata Panel 2">
+        <h5>Tata Power 450W Monocrystalline</h5>
+        <p>High-performance modules with enhanced efficiency.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="vikram-catalogue" class="page-section hidden">
+    <button onclick="showBrands('solar-brands')" class="back-button">&larr; Back to Solar Brands</button>
+    <h2>Vikram Solar - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/F2AE72/fff?text=Vikram+Panel+1" alt="Vikram Panel 1">
+        <h5>Vikram Solar Somera 350W</h5>
+        <p>High-quality modules with strong domestic presence.</p>
+      </div>
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/F2AE72/fff?text=Vikram+Panel+2" alt="Vikram Panel 2">
+        <h5>Vikram Solar Eldora 400W</h5>
+        <p>High-efficiency series for better yields.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pahal-catalogue" class="page-section hidden">
+    <button onclick="showBrands('solar-brands')" class="back-button">&larr; Back to Solar Brands</button>
+    <h2>Pahal - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/F2AE72/fff?text=Pahal+Panel+1" alt="Pahal Panel 1">
+        <h5>Pahal 335W Polycrystalline</h5>
+        <p>Affordable and efficient solar panels for all purposes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="jinko-catalogue" class="page-section hidden">
+    <button onclick="showBrands('solar-brands')" class="back-button">&larr; Back to Solar Brands</button>
+    <h2>Jinko - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/F2AE72/fff?text=Jinko+Panel+1" alt="Jinko Panel 1">
+        <h5>Jinko Tiger Neo 545W</h5>
+        <p>Leading brand with cutting-edge technology.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="emmvee-catalogue" class="page-section hidden">
+    <button onclick="showBrands('solar-brands')" class="back-button">&larr; Back to Solar Brands</button>
+    <h2>Emmvee - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/F2AE72/fff?text=Emmvee+Panel+1" alt="Emmvee Panel 1">
+        <h5>Emmvee 440W Monocrystalline</h5>
+        <p>Robust and reliable Indian solar modules.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Adani Solar catalogue section -->
+  <section id="adani-catalogue" class="page-section hidden">
+    <button onclick="showBrands('solar-brands')" class="back-button">&larr; Back to Solar Brands</button>
+    <h2>Adani Solar - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/F2AE72/fff?text=Adani+Panel+1" alt="Adani Panel 1">
+        <h5>Adani Solar 545W Mono PERC</h5>
+        <p>High-efficiency modules for utility-scale solar projects.</p>
+      </div>
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/F2AE72/fff?text=Adani+Panel+2" alt="Adani Panel 2">
+        <h5>Adani Solar 440W Polycrystalline</h5>
+        <p>Durable and cost-effective panels for commercial use.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inverters -->
+  <section id="cellcronic-catalogue" class="page-section hidden">
+    <button onclick="showBrands('inverter-brands')" class="back-button">&larr; Back to Inverter Brands</button>
+    <h2>Cellcronic - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="Assets/CELL1.webp" alt="Cellcronic Inverter 1">
+        <h5>Cellcronic 5KW Hybrid</h5>
+        <p>Hybrid inverter with integrated battery management system.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="deye-catalogue" class="page-section hidden">
+    <button onclick="showBrands('inverter-brands')" class="back-button">&larr; Back to Inverter Brands</button>
+    <h2>Deye - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/78c3a2/fff?text=Deye+Inverter+1" alt="Deye Inverter 1">
+        <h5>Deye 8K Hybrid Inverter</h5>
+        <p>Advanced hybrid inverter with excellent heat dissipation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="bettry-catalogue" class="page-section hidden">
+    <button onclick="showBrands('inverter-brands')" class="back-button">&larr; Back to Inverter Brands</button>
+    <h2>Bettry - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/78c3a2/fff?text=Bettry+Inverter+1" alt="Bettry Inverter 1">
+        <h5>Bettry 5KW Inverter</h5>
+        <p>Reliable inverter for residential power backup.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="eastman-catalogue" class="page-section hidden">
+    <button onclick="showBrands('inverter-brands')" class="back-button">&larr; Back to Inverter Brands</button>
+    <h2>Eastman - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/78c3a2/fff?text=Eastman+Inverter+1" alt="Eastman Inverter 1">
+        <h5>Eastman Solar 3KVA</h5>
+        <p>Solar inverter with MPPT charge controller.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="lithium-catalogue" class="page-section hidden">
+    <button onclick="showBrands('inverter-brands')" class="back-button">&larr; Back to Inverter Brands</button>
+    <h2>Lithium - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/78c3a2/fff?text=Lithium+Inverter+1" alt="Lithium Inverter 1">
+        <h5>Lithium 10K Inverter</h5>
+        <p>High-capacity inverter for lithium-ion battery systems.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="solex-catalogue" class="page-section hidden">
+    <button onclick="showBrands('inverter-brands')" class="back-button">&larr; Back to Inverter Brands</button>
+    <h2>Solex - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/78c3a2/fff?text=Solex+Inverter+1" alt="Solex Inverter 1">
+        <h5>Solex 2KW Inverter</h5>
+        <p>Compact and efficient inverter for small solar setups.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="growatt-catalogue" class="page-section hidden">
+    <button onclick="showBrands('inverter-brands')" class="back-button">&larr; Back to Inverter Brands</button>
+    <h2>Growatt - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/78c3a2/fff?text=Growatt+Inverter+1" alt="Growatt Inverter 1">
+        <h5>Growatt 6KW Hybrid</h5>
+        <p>Widely used hybrid inverter with excellent monitoring features.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Solax Power catalogue section -->
+  <section id="solax-catalogue" class="page-section hidden">
+    <button onclick="showBrands('inverter-brands')" class="back-button">&larr; Back to Inverter Brands</button>
+    <h2>Solax Power - Product Catalogue</h2>
+    <div class="catalogue-grid">
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/78c3a2/fff?text=Solax+Inverter+1" alt="Solax Inverter 1">
+        <h5>Solax Power X1-Hybrid 5.0</h5>
+        <p>Hybrid inverter for managing solar and battery storage systems.</p>
+      </div>
+      <div class="catalogue-card">
+        <img src="https://placehold.co/400x300/78c3a2/fff?text=Solax+Inverter+2" alt="Solax Inverter 2">
+        <h5>Solax Power X3-Hybrid 10.0</h5>
+        <p>Three-phase inverter for larger commercial installations.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+    const categoriesSection = document.getElementById('categories-section');
+    const brandSections = document.querySelectorAll('#solar-brands, #inverter-brands');
+    const catalogueSections = document.querySelectorAll('[id$="-catalogue"]');
+
+    function showBrands(brandId) {
+      categoriesSection.classList.add('hidden');
+      brandSections.forEach(sec => sec.classList.add('hidden'));
+      catalogueSections.forEach(sec => sec.classList.add('hidden'));
+      document.getElementById(brandId).classList.remove('hidden');
+    }
+
+    function showCategories() {
+      brandSections.forEach(sec => sec.classList.add('hidden'));
+      catalogueSections.forEach(sec => sec.classList.add('hidden'));
+      categoriesSection.classList.remove('hidden');
+    }
+
+    function showCatalogue(catalogueId) {
+      brandSections.forEach(sec => sec.classList.add('hidden'));
+      catalogueSections.forEach(sec => sec.classList.add('hidden'));
+      document.getElementById(catalogueId).classList.remove('hidden');
+    }
+</script>
+
+<footer>
+  <p style="text-align: center; padding: 20px; background-color: #3D2B1F; color: white;">
+    <a href="https://www.instagram.com/sunrise_power_official" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/+919923138363" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://www.facebook.com/profile.php?id=100090373153574" target="_blank"><i class="fab fa-facebook"></i></a>
+    <a href="https://www.youtube.com/@Sunrisepower2all" target="_blank"><i class="fab fa-youtube"></i></a>
+    <br><br>
+    © 2025 Sunrise Power. All rights reserved.
+  </p>
+</footer>
+</body>
+</html>

@@ -1,387 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Our Services - Sunrise Power</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2e3+oWJ54p1J+b+B+k9jE+g+sQ/e51d9h1P+fQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: "Poppins", sans-serif;
-            color: #3D2B1F; 
-            background-color: #fcf8f0;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 5%;
-            z-index: 10;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo img {
-            height: 60px;
-            vertical-align: middle;
-        }
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 35px;
-            font-size: 1rem;
-        }
-        .nav-links a:hover {
-            color: #ddd;
-        }
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-        .nav-right i {
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-        .contact-btn {
-            padding: 10px 25px;
-            border: 1px solid #fff;
-            border-radius: 5px;
-            font-weight: 500;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .contact-btn:hover {
-            background-color: #fff;
-            color: #000;
-        }
-        .main-content {
-            padding: 120px 5% 50px;
-            text-align: center;
-        }
-        .main-content h1 {
-            font-size: 3rem;
-            color: #3D2B1F;
-            margin-bottom: 20px;
-        }
-        .main-content p {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 50px;
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .service-card {
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            text-align: left;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-        .service-card h3 {
-            font-size: 1.5rem;
-            color: #fdd835;
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-        .service-card p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 25px;
-        }
-        .service-card .btn-modal {
-            background-color: #3D2B1F;
-            color: #fff;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
-        }
-        .service-card .btn-modal:hover {
-            background-color: #5a4031;
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .service-card .service-image {
-    width: 100%;
-    height: 200px;
-    border-radius: 12px 12px 0 0;
-    object-fit: cover;
-    margin-bottom: 20px;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Services - Sunrise Power</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* Reset & base */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Poppins",sans-serif;color:#3D2B1F;background-color:#fcf8f0;line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+html{scroll-behavior:smooth;}
+
+/* Navbar */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 5%;
+    background:#3D2B1F;
+    color:#fff;
+    flex-wrap:wrap;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    transition: background 0.3s ease, backdrop-filter 0.3s ease, padding 0.3s ease;
 }
+.navbar.scrolled{
+    background:rgba(61,43,31,0.85);
+    backdrop-filter:blur(8px);
+    padding:15px 5%;
+}
+.logo img{height:60px;}
+.nav-links{display:flex;list-style:none;gap:35px;flex-wrap:wrap;}
+.nav-links a:hover{color:#ddd;}
+.nav-right{display:flex;align-items:center;gap:25px;}
+.nav-right i{font-size:1.2rem;cursor:pointer;}
+.contact-btn{padding:10px 25px;border:1px solid #fff;border-radius:5px;font-weight:500;transition:0.3s;}
+.contact-btn:hover{background:#fff;color:#000;}
 
-        
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 200; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgba(0,0,0,0.6); 
-            padding-top: 50px;
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            animation-name: animatetop;
-            animation-duration: 0.4s;
-        }
-        @keyframes animatetop {
-            from {top: -300px; opacity: 0}
-            to {top: 0; opacity: 1}
-        }
-        .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close-btn:hover,
-        .close-btn:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .modal h2 {
-            color: #3D2B1F;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .modal-form label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
-        }
-        .modal-form input, .modal-form select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: "Poppins", sans-serif;
-            font-size: 1rem;
-        }
-        .modal-form button {
-            width: 100%;
-            background-color: #fdd835;
-            color: #3D2B1F;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .modal-form button:hover {
-            background-color: #ffeb7b;
-        }
-        footer {
-            background-color: #3D2B1F;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        footer a {
-            color: white;
-            margin: 0 15px;
-            font-size: 1.5rem;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        footer a:hover {
-            color: #fdd835;
-            transform: scale(1.2);
-        }
-        .message-box {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #fdd835;
-            color: #3D2B1F;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 500;
-            font-weight: 500;
-            display: none;
-            text-align: center;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-        @keyframes fadein {
-            from {bottom: 0; opacity: 0;}
-            to {bottom: 30px; opacity: 1;}
-        }
-        @keyframes fadeout {
-            from {opacity: 1;}
-            to {opacity: 0;}
-        }
-    </style>
+/* Main Content */
+.main-content{padding:120px 5% 50px;text-align:center;}
+.main-content h1{font-size:3rem;margin-bottom:20px;color:#3D2B1F;}
+.main-content p{font-size:1.1rem;color:#666;margin-bottom:50px;}
+
+/* Services Grid */
+.services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;
+    max-width:1200px;
+    margin:0 auto;
+}
+.service-card{
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    padding:20px;
+    text-align:left;
+    transition:transform 0.3s, box-shadow 0.3s;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+.service-card:hover{transform:translateY(-10px);box-shadow:0 8px 25px rgba(0,0,0,0.15);}
+.service-card h3{font-size:1.5rem;color:#fdd835;margin:15px 0;}
+.service-card p{font-size:1rem;color:#555;line-height:1.6;margin-bottom:25px;}
+.service-card .btn-modal{background:#3D2B1F;color:#fff;padding:12px 25px;border:none;border-radius:50px;font-size:1rem;cursor:pointer;transition:0.3s;}
+.service-card .btn-modal:hover{background:#5a4031;transform:scale(1.05);box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+.service-card .service-image{width:100%;height:200px;border-radius:12px 12px 0 0;object-fit:cover;margin-bottom:20px;}
+
+/* Modal */
+.modal{display:none;position:fixed;z-index:200;left:0;top:0;width:100%;height:100%;overflow:auto;background:rgba(0,0,0,0.6);padding-top:50px;}
+.modal-content{background:#fefefe;margin:5% auto;padding:30px;border-radius:12px;width:90%;max-width:500px;position:relative;animation:animatetop 0.4s;}
+@keyframes animatetop{from{top:-300px;opacity:0}to{top:0;opacity:1}}
+.close-btn{color:#aaa;float:right;font-size:28px;font-weight:bold;cursor:pointer;}
+.close-btn:hover{color:#000;}
+.modal h2{text-align:center;margin-bottom:20px;color:#3D2B1F;}
+.modal-form label{display:block;margin-bottom:8px;color:#555;font-weight:500;}
+.modal-form input, .modal-form select{width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:8px;font-family:"Poppins";font-size:1rem;}
+.modal-form button{width:100%;background:#fdd835;color:#3D2B1F;padding:15px;border:none;border-radius:8px;font-size:1.1rem;font-weight:600;cursor:pointer;transition:0.3s;}
+.modal-form button:hover{background:#ffeb7b;}
+
+/* Chatbot */
+.chatbot-toggler{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    width:60px;
+    height:60px;
+    background:#fdd835;
+    color:#000;
+    border:none;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2rem;
+    cursor:pointer;
+    box-shadow:0 4px 8px rgba(0,0,0,0.2);
+    z-index:1000;
+    transition:transform 0.3s,box-shadow 0.3s;
+}
+.chatbot-toggler:hover{transform:scale(1.1);box-shadow:0 6px 12px rgba(0,0,0,0.3);}
+.chat-modal{
+    display:none;
+    position:fixed;
+    bottom:100px;
+    right:30px;
+    width:350px;
+    height:450px;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+    overflow:hidden;
+    flex-direction:column;
+    z-index:2000;
+}
+.chat-header{background:#fdd835;padding:15px;font-weight:600;color:#3D2B1F;display:flex;justify-content:space-between;align-items:center;}
+.chat-header .close{cursor:pointer;font-size:22px;}
+.chat-body{flex:1;padding:15px;overflow-y:auto;background:#fafafa;font-size:0.9rem;color:#444;}
+.chat-footer{display:flex;border-top:1px solid #ddd;}
+.chat-footer input{flex:1;padding:12px;border:none;outline:none;}
+.chat-footer button{background:#3D2B1F;border:none;color:white;padding:0 18px;cursor:pointer;transition:background 0.3s;}
+.chat-footer button:hover{background:#5a4435;}
+
+/* Message box */
+.message-box{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#fdd835;color:#3D2B1F;padding:15px 25px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);z-index:500;font-weight:500;display:none;text-align:center;animation:fadein 0.5s, fadeout 0.5s 2.5s;}
+@keyframes fadein{from{bottom:0;opacity:0;}to{bottom:30px;opacity:1;}}
+@keyframes fadeout{from{opacity:1;}to{opacity:0;}}
+
+/* Footer */
+footer{background:#3D2B1F;color:white;padding:20px;text-align:center;}
+footer a{color:white;margin:0 15px;font-size:1.5rem;transition:color 0.3s, transform 0.3s;}
+footer a:hover{color:#fdd835;transform:scale(1.2);}
+
+/* Responsive */
+@media(max-width:900px){.main-content h1{font-size:2.5rem;}.service-card .service-image{height:180px;}}
+@media(max-width:600px){.main-content h1{font-size:2rem;}.services-grid{gap:20px;}}
+</style>
 </head>
+
 <body>
-    <header>
-        <nav class="navbar">
-            <a href="Index.html" class="logo"><img src="Assets/sunrise power logo.png" alt="Sunrise Power Logo">
-            </a>
-
-            <ul class="nav-links">
-                <li><a href="Index.html">Home</a></li>
-                <li><a href="About.html">About Us</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="Projects.html">Projects</a></li>
-            </ul>
-            <div class="nav-right">
-                <a href="https://www.solarpower.org/" class="fas fa-globe"></a>
-                <a href="#contact" class="contact-btn">Contact Us</a>
-            </div>
-        </nav>
-    </header>
-
-    <main class="main-content">
-        <h1>Our Services</h1>
-        <p>Explore our comprehensive solar solutions designed for your needs.</p>
-
-        <section class="services-grid">
-            <div class="service-card">
-                <div>
-                    <img src="Assets/panel.jpg" alt="Solar Panel Installation" class="service-image">
-                    <h3>New Solar Plan Installation</h3>
-                    <p>We provide end-to-end services for installing new solar systems for residential and commercial properties. From design to commissioning, we handle everything.</p>
-                </div>
-                <button class="btn-modal" onclick="openModal('New Solar Plan Installation')">Get a Quote</button>
-            </div>
-            <div class="service-card">
-                <div>
-                    <img src="Assets/maint.jpg" alt="Maintenance Services" class="service-image">
-                    <h3>Annual Maintenance Contract</h3>
-                    <p>Ensure your solar system operates at peak efficiency with our annual maintenance contracts. Our experts perform regular checks and repairs to maximize your energy output.</p>
-                </div>
-                <button class="btn-modal" onclick="openModal('Annual Maintenance Contract')">Request Maintenance</button>
-            </div>
-            <div class="service-card">
-                <div>
-                    <img src="Assets/consult.jpg" alt="Consultation Services" class="service-image">
-                    <h3>Consultation</h3>
-                    <p>Get expert advice on solar feasibility, system design, and cost analysis. Our consultants help you make an informed decision about your transition to solar energy.</p>
-                </div>
-                <button class="btn-modal" onclick="openModal('Consultation')">Book a Session</button>
-            </div>
-        </section>
-    </main>
-
-   
-    <div id="service-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2>Inquire About Our Services</h2>
-            <form id="service-form" class="modal-form">
-                <label for="service">Interested Service</label>
-                <input type="text" id="service-input" name="service" readonly>
-
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" required>
-
-                <button type="submit">Submit Inquiry</button>
-            </form>
+<header>
+    <nav class="navbar" id="navbar">
+        <a href="Index.html" class="logo"><img src="Assets/sunrise power logo.png" alt="Sunrise Power Logo"></a>
+        <ul class="nav-links">
+            <li><a href="Index.html">Home</a></li>
+            <li><a href="About.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+        </ul>
+        <div class="nav-right">
+            <a href="https://www.solarpower.org/" class="fas fa-globe"></a>
+            <a href="#contact" class="contact-btn">Contact Us</a>
         </div>
+    </nav>
+</header>
+
+<main class="main-content">
+    <h1>Our Services</h1>
+    <p>Explore our comprehensive solar solutions designed for your needs.</p>
+
+    <section class="services-grid">
+        <div class="service-card">
+            <img src="Assets/panel.jpg" alt="Solar Panel Installation" class="service-image">
+            <h3>New Solar Plan Installation</h3>
+            <p>We provide end-to-end services for installing new solar systems for residential and commercial properties. From design to commissioning, we handle everything.</p>
+            <button class="btn-modal" onclick="openModal('New Solar Plan Installation')">Get a Quote</button>
+        </div>
+        <div class="service-card">
+            <img src="Assets/maint.jpg" alt="Maintenance Services" class="service-image">
+            <h3>Annual Maintenance Contract</h3>
+            <p>Ensure your solar system operates at peak efficiency with our annual maintenance contracts. Our experts perform regular checks and repairs to maximize your energy output.</p>
+            <button class="btn-modal" onclick="openModal('Annual Maintenance Contract')">Request Maintenance</button>
+        </div>
+        <div class="service-card">
+            <img src="Assets/consult.jpg" alt="Consultation Services" class="service-image">
+            <h3>Consultation</h3>
+            <p>Get expert advice on solar feasibility, system design, and cost analysis. Our consultants help you make an informed decision about your transition to solar energy.</p>
+            <button class="btn-modal" onclick="openModal('Consultation')">Book a Session</button>
+        </div>
+    </section>
+</main>
+
+<!-- Service Modal -->
+<div id="service-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Inquire About Our Services</h2>
+        <form id="service-form" class="modal-form">
+            <label for="service">Interested Service</label>
+            <input type="text" id="service-input" name="service" readonly>
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+            <button type="submit">Submit Inquiry</button>
+        </form>
     </div>
-    
+</div>
 
-    <div id="message-box" class="message-box"></div>
+<!-- Chatbot Button -->
+<button class="chatbot-toggler" id="openModal">
+  <i class="fa-solid fa-comments"></i>
+</button>
+<div id="chatModal" class="chat-modal">
+  <div class="chat-header">
+    Chat with us
+    <span class="close">&times;</span>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-footer">
+    <input type="text" id="chatInput" placeholder="Type a message..." />
+    <button id="sendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
 
-    <footer>
-        <p style="text-align: center; padding: 20px; background-color: #3D2B1F; color: white;">
-            <a href="https://www.instagram.com/sunrise_power_official?igsh=MWVuZzM3Y3p1eTNi" class="fab fa-instagram"></a>
-            <a href="https://wa.me/+919923138363" class="fab fa-whatsapp"></a>
-            <a href="https://www.facebook.com/profile.php?id=100090373153574&mibextid=LQQJ4d" class="fab fa-facebook"></a>
-            <a href="https://twitter.com/SunrisePowerOf1" class="fab fa-twitter"></a>
-            <a href="https://www.youtube.com/@sunrisepowerofficial" class="fab fa-youtube"></a>
-            <br>&copy; 2024 Sunrise Power. All rights reserved.
-        </p>
-    </footer>
+<div id="message-box" class="message-box"></div>
 
-    <script>
-        function openModal(service) {
-            const modal = document.getElementById('service-modal');
-            const serviceInput = document.getElementById('service-input');
-            serviceInput.value = service;
-            modal.style.display = 'block';
-        }
+<footer>
+    <p>
+        <a href="https://www.instagram.com/sunrise_power_official?igsh=MWVuZzM3Y3p1eTNi" class="fab fa-instagram"></a>
+        <a href="https://wa.me/+919923138363" class="fab fa-whatsapp"></a>
+        <a href="https://www.facebook.com/profile.php?id=100090373153574&mibextid=LQQJ4d" class="fab fa-facebook"></a>
+        <a href="https://twitter.com/SunrisePowerOf1" class="fab fa-twitter"></a>
+        <a href="https://www.youtube.com/@sunrisepowerofficial" class="fab fa-youtube"></a>
+        <br>&copy; 2025 Sunrise Power. All rights reserved.
+    </p>
+</footer>
 
-        function closeModal() {
-            const modal = document.getElementById('service-modal');
-            modal.style.display = 'none';
-        }
-        
-        function showMessage(message) {
-            const messageBox = document.getElementById('message-box');
-            messageBox.textContent = message;
-            messageBox.style.display = 'block';
-            setTimeout(() => {
-                messageBox.style.display = 'none';
-            }, 3000); 
-        }
+<script>
+// Sticky Navbar
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled', window.scrollY>50);});
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('service-modal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-        
-        document.getElementById('service-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-            
-            showMessage('Inquiry for ' + data.service + ' submitted successfully! We will contact you shortly.');
-            
-            closeModal();
-        });
-    </script>
+// Service Modal
+function openModal(service){
+    const modal = document.getElementById('service-modal');
+    document.getElementById('service-input').value = service;
+    modal.style.display='block';
+}
+function closeModal(){document.getElementById('service-modal').style.display='none';}
+window.onclick = (event)=>{if(event.target==document.getElementById('service-modal')) closeModal();}
+
+// Form Submission
+document.getElementById('service-form').addEventListener('submit', function(event){
+    event.preventDefault();
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+    const messageBox = document.getElementById('message-box');
+    messageBox.textContent='Inquiry for ' + data.service + ' submitted successfully! We will contact you shortly.';
+    messageBox.style.display='block';
+    setTimeout(()=>{messageBox.style.display='none';},3000);
+    closeModal();
+    this.reset();
+});
+
+// Chatbot Logic
+const chatModal = document.getElementById("chatModal");
+const openBtn = document.getElementById("openModal");
+const closeBtn = chatModal.querySelector(".close");
+const chatBody = document.getElementById("chatBody");
+const chatInput = document.getElementById("chatInput");
+const sendBtn = document.getElementById("sendBtn");
+
+openBtn.onclick = () => { chatModal.style.display = "flex"; }
+closeBtn.onclick = () => { chatModal.style.display = "none"; }
+window.onclick = (e) => { if (e.target == chatModal) chatModal.style.display = "none"; }
+
+sendBtn.onclick = () => {
+    let msg = chatInput.value.trim();
+    if(msg){
+        let newMsg = document.createElement("div");
+        newMsg.textContent = msg;
+        newMsg.style.margin = "10px 0";
+        newMsg.style.padding = "8px 12px";
+        newMsg.style.background = "#eee";
+        newMsg.style.borderRadius = "10px";
+        chatBody.appendChild(newMsg);
+        chatInput.value = "";
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+};
+</script>
 </body>
 </html>
