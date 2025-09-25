@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Component</title>
+    <style>
+        /* Basic Body Style for Demo */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+/* chat button */
+        .chat-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(66, 133, 244, 0.5);
+        }
+
+        .chat-button svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            transition: transform 0.3s ease;
+        }
+
+        .chat-button.active svg {
+            transform: rotate(45deg);
+        }
+
+        /* Chat Badge */
+        .chat-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background: #ff4444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: white;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Modal Overlay */
+        .chat-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .chat-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Chat Modal */
+        .chat-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 400px;
+            height: 600px;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1002;
+            transition: all 0.3s ease;
+        }
+
+        .chat-modal.active {
+            display: flex;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Chat Header */
+        .chat-header {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-info h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .header-info .status {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Chat Messages */
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 16px;
+            display: flex;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            margin-top: 4px;
+            text-align: right;
+        }
+        
+        .message.bot .message-content .message-time {
+            color: #666;
+        }
+        
+        .message.user .message-content .message-time {
+            color: #e0e0e0;
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: none;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 18px;
+            border-bottom-left-radius: 6px;
+            max-width: 80px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ccc;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* Chat Input */
+        .chat-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e1e5e9;
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .chat-textarea {
+            width: 100%;
+            border: 2px solid #e1e5e9;
+            border-radius: 20px;
+            padding: 12px 16px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: none;
+            outline: none;
+            transition: border-color 0.2s ease;
+            max-height: 100px;
+            min-height: 44px;
+        }
+
+        .chat-textarea:focus {
+            border-color: #4285f4;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .send-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Welcome Message */
+        .welcome-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .welcome-message svg {
+            width: 48px;
+            height: 48px;
+            fill: #4285f4;
+            margin-bottom: 16px;
+        }
+
+        .welcome-message h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .welcome-message p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Error Message & API Notice */
+        .error-message, .api-notice {
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        .error-message {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        .api-notice {
+            background: #cfe2ff;
+            color: #084298;
+            border-left: 4px solid #0d6efd;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrollbar */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            .chat-modal {
+                width: 100%;
+                height: 100%;
+                max-width: 100%;
+                max-height: 100%;
+                border-radius: 0;
+            }
+            .chat-button {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="chat-button" id="chatButton" aria-label="Open chat">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+        </svg>
+        <div class="chat-badge">!</div>
+    </button>
+
+    <div class="chat-overlay" id="chatOverlay"></div>
+
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-header">
+            <div class="header-info">
+                <h3>Surya</h3>
+                <div class="status">
+                    <div class="status-dot"></div>
+                    Your AI Powered Assistant for solar related Queries
+                </div>
+            </div>
+            <button class="close-btn" id="closeBtn" aria-label="Close chat">&times;</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <div class="input-wrapper">
+                <textarea 
+                    class="chat-textarea" 
+                    id="messageInput" 
+                    placeholder="Type your message..."
+                    rows="1"
+                ></textarea>
+            </div>
+            <button class="send-btn" id="sendBtn" aria-label="Send message">
+                <svg viewBox="0 0 24 24">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+    
+    <script>
+    class ChatBot {
+        constructor() {
+            // Configuration - IMPORTANT: Add your Gemini API key here
+            this.config = {
+                // Replace with your actual Gemini API key
+                apiKey: 'YOUR_GEMINI_API_KEY_HERE', 
+                apiUrl: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
+                
+                // System prompt to define bot behavior
+                systemPrompt: `You are a helpful, professional, and friendly AI assistant.`,
+
+                // Welcome message configuration
+                welcomeMessage: {
+                    title: "👋 Welcome!",
+                    message: "Hi there! I'm an AI assistant. How can I help you today?",
+                    showIcon: true,
+                    autoSend: true 
+                }
+            };
+            
+            this.isOpen = false;
+            this.conversationHistory = [];
+            this.isProcessing = false;
+            
+            this.initializeElements();
+            this.attachEventListeners();
+            this.adjustTextareaHeight();
+            this.checkApiKey();
+            this.initializeWelcomeMessage();
+        }
+
+        initializeElements() {
+            this.chatButton = document.getElementById('chatButton');
+            this.chatOverlay = document.getElementById('chatOverlay');
+            this.chatModal = document.getElementById('chatModal');
+            this.closeBtn = document.getElementById('closeBtn');
+            this.chatMessages = document.getElementById('chatMessages');
+            this.messageInput = document.getElementById('messageInput');
+            this.sendBtn = document.getElementById('sendBtn');
+            this.typingIndicator = document.getElementById('typingIndicator');
+        }
+
+        attachEventListeners() {
+            this.chatButton.addEventListener('click', () => this.toggleChat());
+            this.closeBtn.addEventListener('click', () => this.closeChat());
+            this.chatOverlay.addEventListener('click', () => this.closeChat());
+            this.sendBtn.addEventListener('click', () => this.sendMessage());
+            
+            this.messageInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.sendMessage();
+                }
+            });
+
+            this.messageInput.addEventListener('input', () => {
+                this.adjustTextareaHeight();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && this.isOpen) {
+                    this.closeChat();
+                }
+            });
+        }
+        
+        initializeWelcomeMessage() {
+            this.welcomeMessageShown = false;
+        }
+
+        showWelcomeMessage() {
+            if (this.welcomeMessageShown || !this.config.welcomeMessage) return;
+            
+            const welcomeDiv = document.createElement('div');
+            welcomeDiv.className = 'welcome-message';
+            
+            let iconSvg = '';
+            if (this.config.welcomeMessage.showIcon) {
+                iconSvg = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>`;
+            }
+            
+            welcomeDiv.innerHTML = `${iconSvg}<h4>${this.config.welcomeMessage.title}</h4><p>${this.config.welcomeMessage.message}</p>`;
+            
+            this.chatMessages.insertBefore(welcomeDiv, this.typingIndicator);
+            this.welcomeMessageShown = true;
+            
+            if (this.config.welcomeMessage.autoSend) {
+                setTimeout(() => {
+                    this.addMessage(this.config.welcomeMessage.message, 'bot');
+                }, 1000);
+            }
+        }
+
+        checkApiKey() {
+            if (this.config.apiKey === 'YOUR_GEMINI_API_KEY_HERE' || !this.config.apiKey) {
+                this.showApiNotice();
+            }
+        }
+
+        showApiNotice() {
+            const noticeDiv = document.createElement('div');
+            noticeDiv.className = 'api-notice';
+            noticeDiv.innerHTML = `<strong>Setup Required:</strong> Please add your Gemini API key in the JavaScript code to start chatting.`;
+            this.chatMessages.insertBefore(noticeDiv, this.typingIndicator);
+        }
+
+        toggleChat() {
+            this.isOpen ? this.closeChat() : this.openChat();
+        }
+
+        openChat() {
+            this.isOpen = true;
+            this.chatButton.classList.add('active');
+            this.chatOverlay.classList.add('active');
+            
+            this.chatModal.style.display = 'flex';
+            setTimeout(() => this.chatModal.classList.add('active'), 10);
+            
+            setTimeout(() => this.showWelcomeMessage(), 500);
+            
+            setTimeout(() => this.messageInput.focus(), 800);
+
+            const badge = this.chatButton.querySelector('.chat-badge');
+            if (badge) badge.style.display = 'none';
+        }
+
+        closeChat() {
+            this.isOpen = false;
+            this.chatButton.classList.remove('active');
+            this.chatOverlay.classList.remove('active');
+            this.chatModal.classList.remove('active');
+            
+            setTimeout(() => {
+                if (!this.isOpen) this.chatModal.style.display = 'none';
+            }, 300);
+        }
+
+        adjustTextareaHeight() {
+            const textarea = this.messageInput;
+            textarea.style.height = 'auto';
+            const newHeight = Math.min(textarea.scrollHeight, 100);
+            textarea.style.height = `${newHeight}px`;
+        }
+
+        async sendMessage() {
+            const message = this.messageInput.value.trim();
+            if (!message || this.isProcessing) return;
+
+            if (!this.isValidApiKey()) {
+                this.showError('Please configure your Gemini API key in the code.');
+                return;
+            }
+
+            this.addMessage(message, 'user');
+            this.messageInput.value = '';
+            this.adjustTextareaHeight();
+            this.setProcessingState(true);
+            this.showTypingIndicator();
+
+            try {
+                const response = await this.callGeminiAPI(message);
+                this.hideTypingIndicator();
+                if (response) {
+                    this.addMessage(response, 'bot');
+                } else {
+                    throw new Error('Empty response from API');
+                }
+            } catch (error) {
+                console.error('Chatbot Error:', error);
+                this.hideTypingIndicator();
+                this.handleError(error);
+            } finally {
+                this.setProcessingState(false);
+            }
+        }
+
+        isValidApiKey() {
+            return this.config.apiKey && this.config.apiKey !== 'YOUR_GEMINI_API_KEY_HERE';
+        }
+
+        async callGeminiAPI(message) {
+            const contents = [];
+
+            // Add system prompt and conversation history
+            if (this.conversationHistory.length === 0 && this.config.systemPrompt) {
+                 contents.push({
+                    role: "user",
+                    parts: [{ text: this.config.systemPrompt + "\n\nUser: " + message }]
+                });
+            } else {
+                 // Add recent conversation history for context
+                const recentHistory = this.conversationHistory.slice(-12); // Last 6 user-bot exchanges
+                for (let i = 0; i < recentHistory.length; i += 2) {
+                    if (recentHistory[i] && recentHistory[i + 1]) {
+                        contents.push({ role: "user", parts: [{ text: recentHistory[i] }] });
+                        contents.push({ role: "model", parts: [{ text: recentHistory[i + 1] }] });
+                    }
+                }
+                contents.push({ role: "user", parts: [{ text: message }] });
+            }
+
+            const requestBody = {
+                contents: contents,
+                generationConfig: {
+                    temperature: 0.7,
+                    maxOutputTokens: 1024,
+                },
+            };
+
+            const response = await fetch(`${this.config.apiUrl}?key=${this.config.apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(`API Error ${response.status}: ${errorData.error?.message || response.statusText}`);
+            }
+
+            const data = await response.json();
+            
+            if (data.candidates && data.candidates[0]?.content) {
+                const botResponse = data.candidates[0].content.parts[0].text;
+                this.conversationHistory.push(message, botResponse);
+                if (this.conversationHistory.length > 20) {
+                    this.conversationHistory = this.conversationHistory.slice(-20);
+                }
+                return botResponse;
+            } else if (data.candidates && data.candidates[0]?.finishReason === 'SAFETY') {
+                throw new Error('Response was blocked due to safety filters.');
+            } else {
+                throw new Error('No valid response received from the API');
+            }
+        }
+
+        addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            
+            const textNode = document.createTextNode(text);
+            contentDiv.appendChild(textNode);
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'message-time';
+            timeDiv.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' });
+            contentDiv.appendChild(timeDiv);
+            
+            messageDiv.appendChild(contentDiv);
+            this.chatMessages.insertBefore(messageDiv, this.typingIndicator);
+            this.scrollToBottom();
+        }
+
+        handleError(error) {
+            let errorMessage = 'I apologize, but I encountered an error. Please try again.';
+            if (error.message.includes('API Error 400')) {
+                 errorMessage = 'Invalid API key. Please check your Gemini API key configuration.';
+            } else if (error.message.includes('safety filters')) {
+                errorMessage = error.message;
+            }
+            this.showError(errorMessage);
+        }
+
+        showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            this.chatMessages.insertBefore(errorDiv, this.typingIndicator);
+            this.scrollToBottom();
+        }
+
+        showTypingIndicator() {
+            this.typingIndicator.style.display = 'block';
+            this.scrollToBottom();
+        }
+
+        hideTypingIndicator() {
+            this.typingIndicator.style.display = 'none';
+        }
+
+        setProcessingState(processing) {
+            this.isProcessing = processing;
+            this.messageInput.disabled = processing;
+            this.sendBtn.disabled = processing;
+            if (processing) {
+                this.sendBtn.style.opacity = '0.6';
+            } else {
+                this.sendBtn.style.opacity = '1';
+                this.messageInput.focus();
+            }
+        }
+
+        scrollToBottom() {
+            setTimeout(() => {
+                this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+            }, 100);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        window.chatbot = new ChatBot();
+    });
+    
+    </script>
+</body>
+</html>

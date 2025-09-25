@@ -6,7 +6,7 @@
 <title>Our Services - Sunrise Power</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
+<link rel="stylesheet" href="chat.css">
 <style>
 /* Reset & base */
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -154,6 +154,7 @@ footer a:hover{color:#fdd835;transform:scale(1.2);}
             <li><a href="About.html">About Us</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="Projects.html">Projects</a></li>
+            <li><a href="Products.html">Products</a></li>
         </ul>
         <div class="nav-right">
             <a href="https://www.solarpower.org/" class="fas fa-globe"></a>
@@ -189,7 +190,7 @@ footer a:hover{color:#fdd835;transform:scale(1.2);}
 </main>
 
 <!-- Service Modal -->
-<div id="service-modal" class="modal">
+<!-- <div id="service-modal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">&times;</span>
         <h2>Inquire About Our Services</h2>
@@ -205,10 +206,77 @@ footer a:hover{color:#fdd835;transform:scale(1.2);}
             <button type="submit">Submit Inquiry</button>
         </form>
     </div>
+</div> -->
+<div id="service-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2>Inquire About Our Services email</h2>
+    <form id="service-form" class="modal-form">
+      <label for="service">Interested Service</label>
+      <input type="text" id="service-input" name="service" readonly>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required>
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+      <button type="submit">Submit Inquiry</button>
+    </form>
+  </div>
 </div>
+<script src="sendemail.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+<button class="chat-button" id="chatButton" aria-label="Open chat">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+        </svg>
+        <div class="chat-badge">!</div>
+    </button>
+
+    <div class="chat-overlay" id="chatOverlay"></div>
+
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-header">
+            <div class="header-info">
+                <h3>Surya</h3>
+                <div class="status">
+                    <div class="status-dot"></div>
+                    Your AI Powered Assistant for solar related Queries
+                </div>
+            </div>
+            <button class="close-btn" id="closeBtn" aria-label="Close chat">&times;</button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <div class="input-wrapper">
+                <textarea 
+                    class="chat-textarea" 
+                    id="messageInput" 
+                    placeholder="Type your message..."
+                    rows="1"
+                ></textarea>
+            </div>
+            <button class="send-btn" id="sendBtn" aria-label="Send message">
+                <svg viewBox="0 0 24 24">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <script src="chat.js"></script>
 <!-- Chatbot Button -->
-<button class="chatbot-toggler" id="openModal">
+<!-- <button class="chatbot-toggler" id="openModal">
   <i class="fa-solid fa-comments"></i>
 </button>
 <div id="chatModal" class="chat-modal">
@@ -221,7 +289,7 @@ footer a:hover{color:#fdd835;transform:scale(1.2);}
     <input type="text" id="chatInput" placeholder="Type a message..." />
     <button id="sendBtn"><i class="fa-solid fa-paper-plane"></i></button>
   </div>
-</div>
+</div> -->
 
 <div id="message-box" class="message-box"></div>
 
